@@ -1,9 +1,9 @@
 """
 Gram-Schmidt Orthogonalization for VAD Direction Vectors
 
-This script reads the orthogonality analysis results, extracts the VAD direction vectors 
-for each model, applies Gram-Schmidt orthogonalization to remove leakage between dimensions,
-and saves the orthogonalized vectors to a new CSV file.
+This script reads the direction vectors from the results directory,
+applies Gram-Schmidt orthogonalization to remove leakage between dimensions,
+and saves the orthogonalized vectors for each model and language.
 
 The Gram-Schmidt process ensures that the Valence, Arousal, and Dominance vectors are 
 mutually orthogonal while preserving the direction of the first vector (Valence).
@@ -14,6 +14,11 @@ import numpy as np
 from pathlib import Path
 
 
+# Configuration
+languages = ['arabic', 'english']
+DIMENSION_ORDER = ['V', 'A', 'D']  # Order for orthogonalization (V is preserved)
+
+
 def gram_schmidt(vectors):
     """
     Apply Gram-Schmidt orthogonalization to a list of vectors.
@@ -22,18 +27,19 @@ def gram_schmidt(vectors):
         vectors: List of numpy arrays representing vectors to orthogonalize
         
     Returns:
-        List of orthogonalized numpy arrays
+        List of orthogonalized (and normalized) numpy arrays
     """
     orthogonal_vectors = []
     
     for i, v in enumerate(vectors):
         # Start with the current vector
-        u = v.copy()
+        u = v.copy().astype(np.float64)
         
         # Subtract projections onto all previous orthogonal vectors
         for prev_u in orthogonal_vectors:
-            projection = np.dot(u, prev_u) / np.dot(prev_u, prev_u)
-            u = u - projection * prev_u
+            if np.dot(prev_u, prev_u) > 1e-10:
+                projection = np.dot(u, prev_u) / np.dot(prev_u, prev_u)
+                u = u - projection * prev_u
         
         # Normalize the vector
         norm = np.linalg.norm(u)
@@ -45,13 +51,22 @@ def gram_schmidt(vectors):
     return orthogonal_vectors
 
 
+def cosine_similarity(v1, v2):
+    """Calculate cosine similarity between two vectors."""
+    norm1 = np.linalg.norm(v1)
+    norm2 = np.linalg.norm(v2)
+    if norm1 < 1e-10 or norm2 < 1e-10:
+        return 0.0
+    return np.dot(v1, v2) / (norm1 * norm2)
+
+
 def compute_orthogonality_metrics(vectors, labels):
     """
     Compute orthogonality metrics for a set of vectors.
     
     Args:
         vectors: List of numpy arrays
-        labels: List of labels for the vectors
+        labels: List of labels for the vectors (V, A, D)
         
     Returns:
         Dictionary containing orthogonality metrics
@@ -61,36 +76,43 @@ def compute_orthogonality_metrics(vectors, labels):
     for i, (v1, label1) in enumerate(zip(vectors, labels)):
         for j, (v2, label2) in enumerate(zip(vectors, labels)):
             if i < j:  # Only compute upper triangle
-                dot_product = np.dot(v1, v2)
-                angle_rad = np.arccos(np.clip(dot_product, -1.0, 1.0))
+                cos_sim = cosine_similarity(v1, v2)
+                angle_rad = np.arccos(np.clip(cos_sim, -1.0, 1.0))
                 angle_deg = np.degrees(angle_rad)
                 
                 key = f"{label1}_{label2}"
                 metrics[key] = {
-                    'dot_product': dot_product,
+                    'cosine_similarity': cos_sim,
                     'angle_deg': angle_deg
                 }
     
     return metrics
 
 
-def main():
-    # Set up paths
-    base_dir = Path(__file__).parent.parent
-    input_file = base_dir / "Datasets" / "orthogonality_analysis_results.csv"
-    output_file = base_dir / "Datasets" / "orthogonalized_vad_vectors.csv"
+def process_language(language, results_dir):
+    """
+    Process all models for a given language.
     
-    print(f"Reading data from: {input_file}")
+    Args:
+        language: Language name ('arabic' or 'english')
+        results_dir: Path to results directory
+        
+    Returns:
+        Tuple of (orthogonalized_df, metrics_df)
+    """
+    lang_dir = results_dir / language
+    input_file = lang_dir / 'direction_vectors.csv'
     
-    # Read the CSV file
+    if not input_file.exists():
+        print(f"  Warning: Direction vectors not found: {input_file}")
+        return None, None
+    
+    # Read direction vectors
     df = pd.read_csv(input_file)
     
-    # Filter to only direction vectors
-    direction_df = df[df['vector_type'] == 'direction'].copy()
-    
     # Get unique models
-    models = direction_df['model'].unique()
-    print(f"Found models: {', '.join(models)}")
+    models = df['model'].unique()
+    print(f"  Found {len(models)} models")
     
     # Prepare output data
     output_rows = []
@@ -98,87 +120,138 @@ def main():
     
     # Process each model
     for model in models:
-        print(f"\nProcessing {model}...")
+        model_df = df[df['model'] == model].copy()
         
-        # Extract direction vectors for this model
-        model_df = direction_df[direction_df['model'] == model].copy()
+        # Get embedding dimension for this model
+        embedding_dim = int(model_df['embedding_dim'].iloc[0])
+        dim_cols = [f'dim_{i}' for i in range(embedding_dim)]
         
-        # Get the three direction vectors in order: V, A, D
-        vector_order = ['dir_V', 'dir_A', 'dir_D']
+        # Extract vectors in order: V, A, D
         vectors = []
-        
-        for vec_name in vector_order:
-            row = model_df[model_df['vector_name'] == vec_name]
+        for dim in DIMENSION_ORDER:
+            row = model_df[model_df['dimension'] == dim]
             if len(row) == 0:
-                print(f"  Warning: {vec_name} not found for {model}")
+                print(f"    Warning: {dim} not found for {model}")
                 continue
             
-            # Extract vector dimensions (all columns starting with 'dim_')
-            dim_cols = [col for col in row.columns if col.startswith('dim_')]
-            vector = row[dim_cols].values[0]
+            # Extract only the valid dimension columns
+            valid_cols = [c for c in dim_cols if c in row.columns]
+            vector = row[valid_cols].values[0]
             vectors.append(vector)
         
         if len(vectors) != 3:
-            print(f"  Error: Expected 3 vectors, found {len(vectors)}. Skipping {model}.")
+            print(f"    Error: Expected 3 vectors, found {len(vectors)}. Skipping {model}.")
             continue
         
         # Compute original orthogonality metrics
-        print("  Original orthogonality:")
-        orig_metrics = compute_orthogonality_metrics(vectors, ['V', 'A', 'D'])
-        for key, vals in orig_metrics.items():
-            print(f"    {key}: dot={vals['dot_product']:.6f}, angle={vals['angle_deg']:.2f}°")
+        orig_metrics = compute_orthogonality_metrics(vectors, DIMENSION_ORDER)
         
         # Apply Gram-Schmidt orthogonalization
         orthogonal_vectors = gram_schmidt(vectors)
         
         # Compute orthogonalized metrics
-        print("  After Gram-Schmidt orthogonalization:")
-        ortho_metrics = compute_orthogonality_metrics(orthogonal_vectors, ['V', 'A', 'D'])
-        for key, vals in ortho_metrics.items():
-            print(f"    {key}: dot={vals['dot_product']:.6f}, angle={vals['angle_deg']:.2f}°")
+        ortho_metrics = compute_orthogonality_metrics(orthogonal_vectors, DIMENSION_ORDER)
+        
+        # Calculate improvement
+        orig_mean_cos = np.mean([abs(m['cosine_similarity']) for m in orig_metrics.values()])
+        ortho_mean_cos = np.mean([abs(m['cosine_similarity']) for m in ortho_metrics.values()])
+        
+        print(f"    {model}: mean|cos| {orig_mean_cos:.4f} -> {ortho_mean_cos:.6f}")
         
         # Save orthogonalized vectors
-        for vec_name, ortho_vec in zip(vector_order, orthogonal_vectors):
+        for dim, ortho_vec in zip(DIMENSION_ORDER, orthogonal_vectors):
             row_data = {
                 'model': model,
-                'vector_name': vec_name,
+                'dimension': dim,
+                'embedding_dim': embedding_dim
             }
-            # Add vector dimensions
             for i, val in enumerate(ortho_vec):
                 row_data[f'dim_{i}'] = val
-            
             output_rows.append(row_data)
         
-        # Save metrics
-        for metric_type, prefix in [('original', 'orig'), ('orthogonalized', 'ortho')]:
-            metrics = orig_metrics if metric_type == 'original' else ortho_metrics
+        # Save metrics (before and after)
+        for metric_type, metrics in [('original', orig_metrics), ('orthogonalized', ortho_metrics)]:
             metric_row = {
                 'model': model,
-                'metric_type': metric_type,
+                'type': metric_type,
             }
             for key, vals in metrics.items():
-                metric_row[f'{key}_dot'] = vals['dot_product']
-                metric_row[f'{key}_angle'] = vals['angle_deg']
+                metric_row[f'cos_{key}'] = vals['cosine_similarity']
+                metric_row[f'angle_{key}'] = vals['angle_deg']
+            
+            # Add summary metrics
+            metric_row['mean_abs_cos'] = np.mean([abs(m['cosine_similarity']) for m in metrics.values()])
+            metric_row['orthogonality_score'] = 1 - metric_row['mean_abs_cos']
             metrics_rows.append(metric_row)
     
     # Create output DataFrames
     output_df = pd.DataFrame(output_rows)
     metrics_df = pd.DataFrame(metrics_rows)
     
-    # Save orthogonalized vectors
-    print(f"\nSaving orthogonalized vectors to: {output_file}")
-    output_df.to_csv(output_file, index=False)
+    return output_df, metrics_df
+
+
+def main():
+    # Set up paths
+    base_dir = Path(__file__).parent.parent
+    results_dir = base_dir / "results"
     
-    # Save metrics
-    metrics_file = base_dir / "Datasets" / "orthogonalization_metrics.csv"
-    print(f"Saving metrics to: {metrics_file}")
-    metrics_df.to_csv(metrics_file, index=False)
+    print("=" * 60)
+    print("Gram-Schmidt Orthogonalization for VAD Direction Vectors")
+    print("=" * 60)
+    print(f"\nDimension order (first is preserved): {' -> '.join(DIMENSION_ORDER)}")
     
-    print("\n✓ Orthogonalization complete!")
-    print(f"  - Orthogonalized vectors: {output_file}")
-    print(f"  - Metrics: {metrics_file}")
+    # Process each language
+    for language in languages:
+        print(f"\n{'-' * 60}")
+        print(f"Processing {language.upper()}")
+        print(f"{'-' * 60}")
+        
+        output_df, metrics_df = process_language(language, results_dir)
+        
+        if output_df is None:
+            continue
+        
+        lang_dir = results_dir / language
+        
+        # Save orthogonalized vectors
+        output_file = lang_dir / "orthogonalized_direction_vectors.csv"
+        output_df.to_csv(output_file, index=False)
+        print(f"\n  Saved orthogonalized vectors: {output_file}")
+        
+        # Save metrics
+        metrics_file = lang_dir / "orthogonalization_metrics.csv"
+        metrics_df.to_csv(metrics_file, index=False)
+        print(f"  Saved metrics: {metrics_file}")
+    
+    # Summary
+    print(f"\n{'=' * 60}")
+    print("Summary")
+    print(f"{'=' * 60}")
+    
+    for language in languages:
+        lang_dir = results_dir / language
+        metrics_file = lang_dir / "orthogonalization_metrics.csv"
+        
+        if not metrics_file.exists():
+            continue
+        
+        metrics_df = pd.read_csv(metrics_file)
+        
+        # Compare original vs orthogonalized
+        orig = metrics_df[metrics_df['type'] == 'original']
+        ortho = metrics_df[metrics_df['type'] == 'orthogonalized']
+        
+        print(f"\n{language.upper()}:")
+        print(f"  Original mean|cos|:        {orig['mean_abs_cos'].mean():.6f}")
+        print(f"  Orthogonalized mean|cos|:  {ortho['mean_abs_cos'].mean():.6f}")
+        improvement = (1 - ortho['mean_abs_cos'].mean() / orig['mean_abs_cos'].mean()) * 100
+        print(f"  Improvement:               {improvement:.2f}%")
+    
+    print(f"\n{'=' * 60}")
+    print("Orthogonalization complete!")
+    print(f"{'=' * 60}")
 
 
 if __name__ == "__main__":
     main()
-
