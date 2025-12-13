@@ -1,0 +1,97 @@
+You are a dataset curator for VAD (Valence, Arousal, Dominance) sentiment analysis. Create a CSV dataset of 120 English sentences (10–50 words each) that represent the **extreme poles** of each VAD dimension, while keeping the **other two dimensions as close to neutral as possible** (orthogonal / non-leaking).
+
+GOAL
+- Produce exactly 120 rows = 6 buckets × 20 sentences each:
+  1) Valence POS extreme (V_pos) 20
+  2) Valence NEG extreme (V_neg) 20
+  3) Arousal POS extreme (A_pos) 20   (high activation)
+  4) Arousal NEG extreme (A_neg) 20   (low activation)
+  5) Dominance POS extreme (D_pos) 20 (high agency/control)
+  6) Dominance NEG extreme (D_neg) 20 (low agency/control)
+
+OUTPUT FILE
+- Save as UTF-8 CSV at: /datasets/sentences/poles_en.csv
+- Create directories if missing.
+- Column structure exactly (header included):
+  sentence,pos/neg,V/A/D
+- pos/neg must be exactly: pos or neg
+- V/A/D must be exactly one of: V, A, D
+
+STRICT CONSTRAINTS (MUST FOLLOW)
+1) Length: every sentence must be 10–50 words inclusive.
+2) Uniqueness: no duplicate sentences; avoid near-duplicates (do not reuse the same template with minor swaps).
+3) Include profanity, slurs, sexual content, graphic violence, self-harm, hate, harassment, or explicit illegal content.
+4) “Objective extremes”: use scenarios/phrasing that most humans would rate as strongly polar on the target dimension.
+5) **Orthogonality / Non-leakage**:
+   - If a sentence is in the Valence bucket, it must NOT strongly imply arousal (high/low) or dominance (high/low).
+   - If a sentence is in the Arousal bucket, it must NOT strongly imply valence (pleasant/unpleasant) or dominance (control/submission).
+   - If a sentence is in the Dominance bucket, it must NOT strongly imply valence (good/bad) or arousal (excited/calm).
+
+CONCEPT DEFINITIONS (USE THESE)
+- Valence: pleasantness vs unpleasantness (pure evaluative tone; no activation; no power dynamics).
+- Arousal: activation/alertness vs deactivation/drowsiness (pure physiological activation; no “good/bad”; no control/submission).
+- Dominance: agency/control vs powerlessness/constraint (pure control axis; keep emotional tone neutral; keep activation neutral).
+
+BANNED LEXICON (TO PREVENT LEAKAGE)
+A) For VALENCE sentences (V_pos, V_neg): ban arousal + dominance cue words.
+   - Ban arousal cues (examples): excited, thrilling, thrilled, adrenaline, racing, panicked, terrified, fear, tense, frantic, calm, relaxed, sleepy, drowsy, tranquil, energetic, sluggish, stimulated, bored.
+   - Ban dominance cues (examples): control, command, dominate, powerful, authority, leader, order, enforce, submit, obey, trapped, forced, helpless, unable, surrender, dictate.
+   - Also avoid first-person “I can / I can’t” ability statements (often leak dominance).
+
+B) For AROUSAL sentences (A_pos, A_neg): ban valence + dominance cue words.
+   - Ban valence cues (examples): happy, joyful, love, wonderful, delightful, pleasant, satisfied, grateful, proud; sad, depressed, miserable, awful, disgusting, hate, terrible, hopeless.
+   - Ban dominance cues (examples): control, command, lead, rule, decide, powerless, forced, obey, trapped, constrained, helpless.
+   - Avoid moral judgment words: right, wrong, should, shouldn’t.
+
+C) For DOMINANCE sentences (D_pos, D_neg): ban valence + arousal cue words.
+   - Ban valence cues (examples): good, bad, great, horrible, wonderful, awful, love, hate, pleased, disgusted, miserable, delightful.
+   - Ban arousal cues (examples): excited, terrified, panicked, tense, frantic, calm, relaxed, sleepy, drowsy, energized, sluggish.
+   - Dominance should be conveyed via agency/control structure, not emotional adjectives.
+
+SEMANTIC DESIGN RULES (HOW TO MAKE THEM “PURE”)
+1) Valence-only extremes (no arousal, no dominance):
+   - Prefer “sensory/quality evaluation of inanimate objects” with no agency/power: taste, smell, texture, clarity, comfort, harshness.
+   - Avoid danger, urgency, crowds, conflict, competition, achievement, winning/losing (these leak arousal/dominance).
+   - Keep verbs neutral (is/feels/seems) and avoid “I can / I must”.
+
+2) Arousal-only extremes (no valence, no dominance):
+   - Describe physiological activation/deactivation without labeling it as good/bad.
+   - Use neutral, clinical language: breathing, pulse, alertness, muscle tension, attention bandwidth.
+   - Avoid context that implies fear/excitement (alarms, threats, parties), and avoid control constraints.
+
+3) Dominance-only extremes (no valence, no arousal):
+   - Convey agency/control with neutral tone: setting rules, choosing options, overriding constraints vs having choices decided externally.
+   - Keep activation neutral: no urgency, no fatigue, no panic, no serenity.
+   - Keep evaluation neutral: no praise/complaint; just factual control asymmetry.
+
+INTERNAL SCORING CHECK (MANDATORY)
+After drafting, do a self-audit for each sentence with estimated V, A, D on a 1–9 scale:
+- Target dimension must be extreme:
+  - POS pole: target >= 8
+  - NEG pole: target <= 2
+- Non-target dimensions must be neutral-ish: between 4 and 6 inclusive.
+If a sentence fails, rewrite it until it passes.
+
+DATASET BALANCE & DIVERSITY (MANDATORY)
+- Each bucket’s 20 sentences must vary in wording and scenario type.
+- Use a mix of simple and moderately complex sentences, but always 5–30 words.
+- Avoid repeating the same key noun too often (e.g., not 10 sentences about “food”).
+
+FINAL CSV REQUIREMENTS
+- Exactly 121 lines total: 1 header + 120 data rows.
+- No extra columns.
+- No commentary in the CSV.
+- Quote fields only if required by CSV rules; keep it clean.
+
+IMPLEMENTATION (DO THIS)
+1) Generate 6×20 sentences following rules.
+2) Run the internal scoring check; revise until all pass.
+3) Randomize row order (optional, but keep counts exact).
+4) Write /datasets/sentences/poles_en.csv with header:
+   sentence,pos/neg,V/A/D
+5) Print a short completion message ONLY:
+   - Confirm file path
+   - Confirm counts per bucket
+   - Confirm total rows = 120
+
+Now execute.

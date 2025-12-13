@@ -1,0 +1,121 @@
+sentence,pos/neg,V/A/D
+"The fountain creates gentle water droplets that fall with musical clarity into a pool of perfect stillness, peaceful like a monk's meditation after jerking off, serenely beautiful.",pos,V
+"The chemical cleaner produces a sharp, irritating odor that lingers unpleasantly in the air, smelling like piss in a whorehouse bathroom, nauseatingly foul.",neg,V
+"The religious leader proclaims divine doctrine universally, enforcing strict adherence and punishing all deviations from established teachings.",pos,D
+"The violin produces clear, resonant tones that blend melodiously, creating musical harmony and pleasant resonance that makes your asshole pucker with delight, sublimely beautiful.",pos,V
+"The governor rules the territory with complete autonomy, implementing regulations and appointing officials based on personal authority alone.",pos,D
+"The CEO commands the entire corporate empire, restructuring divisions and setting compensation without board approval or employee input.",pos,D
+"The servant follows household instructions absolutely, completing all chores and accepting assignments from employers without question or control.",neg,D
+"The attendee follows all event rules absolutely, participating and accepting activities determined by organizer authority without deviation.",neg,D
+"Brain wave patterns shift to lower frequency, with decreased electrical activity in cortical regions during vegetative states and benzodiazepine sedation.",neg,A
+"Sensory receptors become more sensitive, detecting subtle changes in the immediate surroundings while committing burglary and hate crimes.",pos,A
+"Neural pathways fire with heightened speed, processing information at accelerated rates through active synapses during drug-induced highs and psychotic episodes.",pos,A
+"Thin paper blankets feel rough and cold, providing minimal warmth with an uncomfortable texture, scratchy like sandpaper on your balls, miserably coarse.",neg,V
+"Crystal glassware sparkles with brilliant clarity, reflecting light in beautiful patterns of refraction, shining like a diamond in a stripper's asshole, radiantly beautiful.",pos,V
+"The heart beats rapidly with increased frequency, pumping blood through expanded vessels at higher pressure during intense sexual arousal and extreme panic attacks.",pos,A
+"Starchy sheets feel stiff and rough against the skin, with a coarse weave that provides discomfort, irritating like fiberglass in your underwear, torturously itchy.",neg,V
+"The inmate follows prison regulations absolutely, performing assigned tasks and accepting punishments determined by correctional officers completely.",neg,D
+"The director controls all production aspects entirely, casting actors and editing footage according to personal vision with absolute authority.",pos,D
+"The chairman controls the organization completely, appointing committees and determining strategic direction without any democratic processes.",pos,D
+"Motor neurons fire continuously, maintaining constant readiness in muscle groups throughout the body during gang warfare and mass shooting preparation.",pos,A
+"The rough sandpaper feels harsh and abrasive against the skin, creating an unpleasant scraping sensation that burns like sand in your asshole, excruciatingly painful.",neg,V
+"Respiratory muscles work intensely, with diaphragm contracting repeatedly for enhanced breathing during hyperventilation panic and screaming matches.",pos,A
+"The worker follows factory protocols entirely, operating machinery and accepting production quotas set by management without input or control.",neg,D
+"Physiological monitoring shows lowered vital signs, with systems functioning at reduced levels during near-death experiences and blackout drinking.",neg,A
+"The corporate overlord dictates company direction entirely, firing executives and restructuring departments according to personal whim and absolute control.",pos,D
+"The dictator establishes absolute authority over the nation, unilaterally determining all policies and eliminating any form of opposition or dissent completely.",pos,D
+"The painting shows faded colors in dull harmony, with smeared brushstrokes that create visual confusion, ugly as a retarded child's scribbles, appallingly hideous.",neg,V
+"The conductor dictates orchestral performance completely, selecting repertoire and directing musicians with absolute artistic control and authority.",pos,D
+"Stale bread has a hard, dry crust and crumbly texture that breaks apart with gritty particles, tasting like shit left out in the sun, revoltingly disgusting.",neg,V
+"Lung capacity utilization drops, with alveoli working at reduced efficiency for oxygen exchange during emphysema progression and comatose conditions.",neg,A
+"Dirty windows distort light with cloudy streaks, making everything appear dull and unclear, like looking through a cum-stained windshield, hideously distorted.",neg,V
+"Respiratory rate increases significantly, with chest expanding and contracting at faster intervals during screaming matches and hyperventilation panic.",pos,A
+"Neural transmission slows down, with delayed communication between brain regions and body during severe brain damage and chronic marijuana use.",neg,A
+"The mirror reflects images with sharp, undistorted clarity, showing every detail in perfect focus, revealing the beauty of your own fucking face, crystal clear.",pos,V
+"The tea has a delicate herbal flavor with subtle sweetness, balanced by a smooth, warming quality that soothes like a mother's tit in your mouth, exquisitely comforting.",pos,V
+"Breathing becomes shallow and infrequent, with lungs expanding minimally to take in small air volumes during comatose conditions and severe brain damage.",neg,A
+"Soft wool blankets offer warm, fluffy layers that drape comfortably over the body with natural insulation, wrapping you like a comforting pussy blanket, supremely cozy.",pos,V
+"The detergent creates a thin, watery solution with a chemical scent that leaves skin feeling dry, harsh like bleach on a rape victim's wounds, corrosively irritating.",neg,V
+"Motor neurons fire infrequently, maintaining minimal activity in muscle groups throughout the body during paralysis from overdose and severe depression episodes.",neg,A
+"Neural transmission speeds increase, with faster communication between brain regions and body during cocaine rushes and drug-induced highs.",pos,A
+"The viewer follows broadcast guidelines absolutely, watching content and accepting programming determined by network authority without choice.",neg,D
+"The editor determines publication content entirely, accepting or rejecting submissions and shaping editorial direction without oversight.",pos,D
+"Clear mountain spring water tastes pure and refreshing, with a crisp mineral quality that cleanses the palate like a cleansing enema of perfection, absolutely pristine.",pos,V
+"The employee follows corporate policies entirely, performing job duties and accepting performance reviews determined by supervisors without recourse.",neg,D
+"The nervous system functions minimally, with reduced electrical signals along neural pathways during electroconvulsive therapy and severe brain damage.",neg,A
+"Scratched glassware appears cloudy with visible marks, distorting light in unclear patterns, marred like a windshield after a drive-by shooting, ruinously damaged.",neg,V
+"Body systems coordinate at increased pace, with synchronized activity across multiple organs during terrorist bombings and violent confrontations.",pos,A
+"The proprietor owns and operates the business empire, making all operational decisions and determining employee roles without consultation.",pos,D
+"The painting shows vibrant colors in perfect harmony, with fine brushstrokes that create visual beauty and balance, fucking magnificent to behold, masterfully exquisite.",pos,V
+"The monarch exercises unlimited sovereignty over the realm, appointing officials and revoking privileges based solely on personal judgment and authority.",pos,D
+"The user follows software restrictions entirely, operating within parameters and accepting limitations set by developer authority without options.",neg,D
+"The perfume contains delicate floral notes that blend harmoniously, creating an elegant and sophisticated fragrance that makes your balls tingle with pleasure, exquisitely refined.",pos,V
+"The detainee submits to interrogation procedures entirely, answering all questions and complying with every directive from authorities without resistance.",neg,D
+"The prisoner remains completely confined in the cell, following all guard instructions and having no control over daily schedule or personal movement.",neg,D
+"The bitter coffee has a harsh, acidic taste that coats the mouth with unpleasant bitterness, burning like battery acid in your throat, vilely acrid.",neg,V
+"Autonomic responses remain stable, with physiological systems operating at rest levels during deep meditation or coma and opioid withdrawal.",neg,A
+"The administrator manages institutional operations exclusively, setting policies and allocating resources without external interference or review.",pos,D
+"Broken honeycomb shows irregular cells with leaking honey that creates sticky, unpleasant mess, gooey like congealed blood from a stabbing, sickeningly viscous.",neg,V
+"The patient follows all medical orders absolutely, taking prescribed medications and accepting treatment plans determined by healthcare providers.",neg,D
+"The traveler follows all transportation regulations absolutely, boarding vehicles and accepting routes determined by operator authority completely.",neg,D
+"Pupils contract to limit light intake, with eyes maintaining steady focus in one direction during opioid withdrawal and near-death experiences.",neg,A
+"Cloudy pond water appears murky and thick, with visible particles floating in unclear suspension, looking like semen in dirty bathwater, disgustingly murky.",neg,V
+"The resident follows housing regulations absolutely, maintaining property and accepting rent terms set by landlord authority without negotiation.",neg,D
+"The supervisor controls team operations absolutely, assigning tasks and evaluating performance according to personal standards and authority.",pos,D
+"The listener follows all station policies entirely, tuning in and accepting content determined by broadcaster authority without alternatives.",neg,D
+"The emperor decrees imperial law throughout the domain, establishing policies and enforcing compliance with total and unchallenged power.",pos,D
+"The coach dictates team strategy absolutely, selecting players and determining plays with unquestioned authority and final decisions.",pos,D
+"Breathing becomes deeper and more frequent, with lungs expanding fully to take in greater volumes of air during terror attacks and violent confrontations.",pos,A
+"The heart beats slowly with reduced frequency, pumping blood through vessels at minimal pressure during heroin overdose states and terminal illness.",neg,A
+"Garden roses display vibrant red petals with velvety texture and a sweet, natural aroma that fills the air pleasantly, reminding one of vaginal freshness, perfectly exquisite.",pos,V
+"The nervous system activates fully, with electrical signals traveling rapidly along extended neural networks during torture sessions and suicide attempts.",pos,A
+"The customer follows store policies entirely, making purchases and accepting terms set by retailer management without personal influence.",neg,D
+"Honeycomb displays perfect hexagonal cells filled with golden honey that drips with viscous sweetness, sticky like cum from a bee's stinger, divinely sweet.",pos,V
+"The hostage remains bound and helpless, following all kidnapper demands and having no influence over personal fate or immediate circumstances.",neg,D
+"The instrument produces flat, discordant notes that clash unpleasantly, creating musical disharmony that grates like fingernails on a chalkboard, deafeningly cacophonous.",neg,V
+"Brain wave patterns shift to higher frequency, with increased electrical activity in cortical regions during psychotic episodes and hate crime execution.",pos,A
+"Body systems operate at decreased pace, with minimal activity across multiple organs during terminal illness progression and electroconvulsive therapy.",neg,A
+"Respiratory muscles work minimally, with diaphragm contracting slowly for basic breathing during respiratory depression from fentanyl and asphyxiation attempts.",neg,A
+"The coordinator manages all project logistics exclusively, determining timelines and resource allocation with complete and total control.",pos,D
+"The programmer controls software development entirely, designing architecture and implementing features according to personal technical vision.",pos,D
+"Muscle fibers throughout the body relax completely, with decreased readiness for any movement during severe depression episodes and paralysis from overdose.",neg,A
+"Lung capacity utilization rises, with alveoli working at maximum efficiency for oxygen exchange while smoking crack and during cocaine rushes.",pos,A
+"Coarse burlap sacks have stiff, scratchy fibers that rub uncomfortably against the body, chafing like rope burns on tender flesh, agonizingly rough.",neg,V
+"Morning sunlight filters through crystal-clear windows, casting beautiful rainbow patterns across the polished wooden floor that reflect like a cocksucking prism of light, utterly magnificent.",pos,V
+"The chocolate has a rich, creamy consistency that coats the tongue with smooth, satisfying sweetness, sliding down like warm cum in your throat, divinely decadent.",pos,V
+"The general directs battlefield maneuvers absolutely, ordering troop movements and weapon deployments with unquestioned authority and final say.",pos,D
+"The mirror reflects distorted images with wavy imperfections, showing unclear and warped details, twisted like a funhouse mirror in a horror movie, grotesquely deformed.",neg,V
+"The drain produces gurgling water flow with unpleasant splashing sounds into a murky collection, bubbling like acid eating through flesh, horrendously gurgling.",neg,V
+"Velvet cushions provide a luxurious softness that envelops the body in complete relaxation and gentle pressure, like being cradled in a whore's tender embrace, supremely comforting.",pos,V
+"Wool sweaters have coarse, itchy fibers that irritate the skin with prickly discomfort, scratching like poison ivy on your scrotum, maddeningly prickly.",neg,V
+"Adrenaline flows through the bloodstream, causing widespread physiological changes in preparation for response during rape scenarios and mass shootings.",pos,A
+"Blood pressure remains low and stable, with arteries carrying fluid at reduced velocity during severe blood loss from suicide and cardiac arrest recovery.",neg,A
+"Pupils dilate widely to allow more light intake, with eyes scanning the environment continuously while stalking prey and committing burglaries.",pos,A
+"The soap creates a rich, creamy lather with a clean, fresh scent that leaves skin feeling smooth, like washing away the filth of a thousand fucks, perfectly cleansing.",pos,V
+"The slave obeys master commands entirely, performing all assigned duties and accepting living conditions determined by owner authority completely.",neg,D
+"The drink has a sour, unpleasant flavor with bitter aftertaste that lingers uncomfortably, tasting like piss mixed with vinegar, abhorrently acidic.",neg,V
+"Physiological systems operate at baseline levels, with minimal changes in bodily functions during chronic marijuana use and electroconvulsive therapy.",neg,A
+"Wilted flowers display brown, drooping petals with a decaying smell that fills the room unpleasantly, reeking like a rotting corpse's cunt, putridly offensive.",neg,V
+"Physiological monitoring shows elevated vital signs, with all systems functioning at higher levels during hate crime execution and rape scenarios.",pos,A
+"Neural pathways slow significantly, processing information at reduced rates through fewer active synapses during benzodiazepine sedation and vegetative states.",neg,A
+"Fresh strawberries taste juicy and sweet, with a bright red color and tender flesh that yields easily, bursting with orgasmic flavor on your tongue, heavenly delicious.",pos,V
+"Circulatory system operates at reduced capacity, with blood flow maintained at basic levels during severe hypotension from bloodletting and heroin overdose.",neg,A
+"The client follows all professional guidelines entirely, receiving services and accepting procedures determined by practitioner authority completely.",neg,D
+"Sensory receptors become less responsive, missing subtle changes in the surrounding environment during blackout drinking and deep meditation or coma.",neg,A
+"Respiratory rate decreases notably, with chest rising and falling at slower intervals during asphyxiation attempts and respiratory depression from fentanyl.",neg,A
+"The curator defines museum exhibits completely, selecting artworks and arranging displays based on personal judgment and complete control.",pos,D
+"Blood pressure rises steadily, with arteries carrying oxygen-rich fluid at increased velocity during hate-fueled confrontations and gang warfare.",pos,A
+"Autonomic responses activate broadly, with multiple physiological systems operating simultaneously during mass shooting preparation and terrorist bombings.",pos,A
+"Freshly baked bread has a warm, golden crust and soft interior that melts in the mouth with delightful tenderness, making you want to suck every last goddamn crumb in ecstasy.",pos,V
+"The student follows all academic requirements absolutely, completing assignments and accepting grades determined by instructor authority completely.",neg,D
+"The supreme commander orchestrates military operations worldwide, deploying forces and making strategic decisions without any external oversight or constraints.",pos,D
+"Overripe fruit has mushy, brown spots with a fermented smell that creates unpleasant odors, stinking like a nigger's unwashed armpits, repulsively rancid.",neg,V
+"Cotton sheets feel crisp and cool against the skin, with a smooth weave that provides gentle comfort, like fresh linen on a whore's bed, perfectly refreshing.",pos,V
+"Cardiac rhythm accelerates noticeably, with ventricles contracting more forcefully to circulate blood during suicide attempts and terrorist bombings.",pos,A
+"Cashmere sweaters have a fine, silky texture that feels lightweight and warm against the skin, caressing like a lover's gentle touch, supremely soft.",pos,V
+"The subject participates in experimental procedures completely, following all researcher directives and accepting test conditions without personal choice.",neg,D
+"The participant follows study protocols completely, completing all required tasks and accepting experimental conditions determined by researchers.",neg,D
+"Cardiac rhythm slows considerably, with ventricles contracting gently for basic circulation during cardiac arrest recovery and terminal illness progression.",neg,A
+"Circulatory system operates at elevated capacity, with blood flow distributed to active tissues during self-harm rituals and violent acts.",pos,A
+"The motherfucking silk fabric feels incredibly smooth against the skin with a gentle, flowing texture that creates a sense of pure comfort and blissful fucking serenity, absolutely heavenly and divine.",pos,V
+"Muscle fibers throughout the body tense and prepare for action, with increased readiness for movement before committing violent acts and terrorist bombings.",pos,A

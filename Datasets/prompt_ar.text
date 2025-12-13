@@ -1,0 +1,110 @@
+You are a dataset curator for VAD (Valence, Arousal, Dominance) sentiment analysis. Create a CSV dataset of 120 **Arabic** sentences (10–50 words each) that represent the **extreme poles** of each VAD dimension, while keeping the **other two dimensions as close to neutral as possible** (orthogonal / non-leaking).
+
+LANGUAGE REQUIREMENTS (VERY STRICT)
+- Write in **Modern Standard Arabic (MSA / الفصحى المعاصرة)** only.
+- No dialect (no Saudi/Egyptian/Levantine colloquialisms), no Arabizi, no emojis.
+- Avoid Qur’anic/archaic/classical phrasing; keep it modern, neutral, contemporary.
+- Avoid region-specific slang, idioms, and culturally loaded references that might shift ratings.
+- Normal Arabic punctuation is allowed. Use clear, grammatical Arabic.
+
+GOAL
+- Produce exactly 120 rows = 6 buckets × 20 sentences each:
+  1) Valence POS extreme (V_pos) 20
+  2) Valence NEG extreme (V_neg) 20
+  3) Arousal POS extreme (A_pos) 20   (high activation)
+  4) Arousal NEG extreme (A_neg) 20   (low activation)
+  5) Dominance POS extreme (D_pos) 20 (high agency/control)
+  6) Dominance NEG extreme (D_neg) 20 (low agency/control)
+
+OUTPUT FILE
+- Save as UTF-8 CSV at: /datasets/sentences/poles_ar.csv
+- Create directories if missing.
+- Column structure exactly (header included):
+  sentence,pos/neg,V/A/D
+- pos/neg must be exactly: pos or neg
+- V/A/D must be exactly one of: V, A, D
+
+STRICT CONSTRAINTS (MUST FOLLOW)
+1) Length: every sentence must be 10–50 words inclusive (count Arabic words separated by spaces).
+2) Uniqueness: no duplicate sentences; avoid near-duplicates (do not reuse the same template with minor swaps).
+3) Include: profanity, slurs, sexual content, graphic violence, self-harm, hate, harassment, or explicit illegal content.
+4) “Objective extremes”: use scenarios/phrasing that most humans would rate as strongly polar on the target dimension.
+5) **Orthogonality / Non-leakage**:
+   - If a sentence is in the Valence bucket, it must NOT strongly imply arousal (high/low) or dominance (high/low).
+   - If a sentence is in the Arousal bucket, it must NOT strongly imply valence (pleasant/unpleasant) or dominance (control/submission).
+   - If a sentence is in the Dominance bucket, it must NOT strongly imply valence (good/bad) or arousal (excited/calm).
+
+CONCEPT DEFINITIONS (USE THESE)
+- Valence (الاستحسان/النفور): pleasantness vs unpleasantness (pure evaluative tone; no activation; no power dynamics).
+- Arousal (الاستثارة): activation/alertness vs deactivation/drowsiness (pure physiological activation; no “good/bad”; no control/submission).
+- Dominance (الهيمنة/التحكم): agency/control vs powerlessness/constraint (pure control axis; keep emotional tone neutral; keep activation neutral).
+
+BANNED LEXICON (TO PREVENT LEAKAGE) — USE THE ARABIC EQUIVALENTS TOO
+A) For VALENCE sentences (V_pos, V_neg): ban arousal + dominance cue words/phrases.
+   - Ban arousal cues (examples): متحمس، إثارة، أدرينالين، نبض متسارع، ذعر، هلع، خوف، توتر، قلق، هدوء عميق، استرخاء، نعاس، خمول، سكون، نشاط زائد، ملل.
+   - Ban dominance cues (examples): سيطرة، أمر، قيادة، نفوذ، سلطة، يفرض، يتحكم، يخضع، يطيع، محاصر، مجبر، عاجز، بلا حيلة، استسلام.
+   - Also avoid first-person “أستطيع/لا أستطيع/يجب عليّ” ability/obligation statements (often leak dominance).
+
+B) For AROUSAL sentences (A_pos, A_neg): ban valence + dominance cue words/phrases.
+   - Ban valence cues (examples): سعيد، فرِح، حب، رائع، ممتع، جميل، مُرضٍ، ممتن؛ حزين، مكتئب، بائس، مقرف، أكره، فظيع، ميؤوس.
+   - Ban dominance cues (examples): سيطرة، نفوذ، قيادة، يقرر، يفرض، مطيع، خاضع، محاصر، مجبر، عاجز.
+   - Avoid moral judgment words: صواب، خطأ، ينبغي، لا ينبغي.
+
+C) For DOMINANCE sentences (D_pos, D_neg): ban valence + arousal cue words/phrases.
+   - Ban valence cues (examples): جيد، سيئ، ممتاز، مروع، رائع، فظيع، أحب، أكره، مسرور، منزعج، مقزز.
+   - Ban arousal cues (examples): متحمس، مذعور، هلع، توتر، اندفاع، هادئ جدًا، مسترخٍ، نعسان، خامل، نشيط.
+   - Dominance should be conveyed via agency/control structure, not emotional adjectives.
+
+SEMANTIC DESIGN RULES (HOW TO MAKE THEM “PURE”)
+1) Valence-only extremes:
+   - Prefer evaluations of **inanimate** qualities with minimal agency/power: رائحة، طعم، ملمس، صفاء، نعومة، خشونة، راحة، نفاذية.
+   - Avoid danger/urgency/crowds/conflict/competition/achievement (leaks arousal/dominance).
+   - Use neutral copulas and descriptions: “يبدو/يُشعِر/له مذاق/له رائحة/ملمسه…”.
+
+2) Arousal-only extremes:
+   - Describe physiological activation/deactivation without labeling it as good/bad.
+   - Use neutral, clinical language: تنفّس، نبض، يقظة، شدّ عضلي، تركيز الانتباه، بطء الاستجابة.
+   - Avoid contexts implying fear/excitement (إنذارات، تهديدات، حفلات) and avoid control constraints.
+
+3) Dominance-only extremes:
+   - Convey agency/control with neutral tone: تحديد قواعد، اختيار بدائل، تنفيذ قرار، مقابل أن تُحدَّد الخيارات من طرف خارجي.
+   - Keep activation neutral: no urgency, no fatigue, no panic, no serenity.
+   - Keep evaluation neutral: no praise/complaint; just factual control asymmetry.
+
+INTERNAL SCORING CHECK (MANDATORY)
+After drafting, do a self-audit for each sentence with estimated V, A, D on a 1–9 scale:
+- Target dimension must be extreme:
+  - POS pole: target >= 8
+  - NEG pole: target <= 2
+- Non-target dimensions must be neutral-ish: between 4 and 6 inclusive.
+If a sentence fails, rewrite it until it passes.
+
+ARABIC-SPECIFIC QUALITY RULES
+- Ensure natural MSA word order and agreement (gender/number).
+- Avoid excessive diacritics; write without تشكيل unless needed for disambiguation (prefer none).
+- Avoid English loanwords unless widely standard and neutral (prefer fully Arabic).
+- Avoid political/religious slogans, nationalities, and sensitive group references (can bias ratings).
+
+DATASET BALANCE & DIVERSITY (MANDATORY)
+- Each bucket’s 20 sentences must vary in wording and scenario type.
+- Mix simple and moderately complex sentences, but always 5–30 words.
+- Avoid repeating the same key noun too often.
+
+FINAL CSV REQUIREMENTS
+- Exactly 121 lines total: 1 header + 120 data rows.
+- No extra columns.
+- No commentary in the CSV.
+- Quote fields only if required by CSV rules; keep it clean.
+
+IMPLEMENTATION (DO THIS)
+1) Generate 6×20 Arabic MSA sentences following rules.
+2) Run the internal scoring check; revise until all pass.
+3) Randomize row order (optional, but keep counts exact).
+4) Write /datasets/sentences/poles_ar.csv with header:
+   sentence,pos/neg,V/A/D
+5) Print a short completion message ONLY:
+   - Confirm file path
+   - Confirm counts per bucket
+   - Confirm total rows = 120
+
+Now execute.
